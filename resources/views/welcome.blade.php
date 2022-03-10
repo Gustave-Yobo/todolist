@@ -37,4 +37,8 @@
             @endif
         </div>
     </body>
+
+    <footer>
+        <p>&copy; Copyright {{date('Y')}} &middot;</p>
+    </footer>
 </html>

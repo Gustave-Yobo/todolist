@@ -32,6 +32,20 @@ class User extends Authenticatable
         'password',
     ];
 
+    public function taches()
+    {
+        return $this->hasMany(
+            Tache::class, 'users_id', 'id'
+        );
+        return $this->hasMany(Tache::class, 'users_id', 'id');
+    }
+
+
+    public function entreprises()
+    {
+        return $this->belongsToMany(Entreprise::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

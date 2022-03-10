@@ -30,11 +30,11 @@ class TacheController extends Controller
      */
     public function create()
     {
-        //$users = User::all(['id', 'nom']);
+        $users = User::all(['id', 'nom']);
         //$users = User::lists(['name', 'id']);
 
         //return view('prices.create', compact('id', 'items'));
-        return View('tache.create');
+        return View('tache.create', compact('users'));
     }
 
     /**
@@ -51,12 +51,30 @@ class TacheController extends Controller
             'users_id' => 'required'
         ]);
 
-        Tache::create([
+        $users_id = Auth::user()->id;
+        //dd($users_id);
+        $taches = new Tache([
+            'titre' => $request->input('titre'),
+            'detail' => $request->input('detail'),
+            'users_id' => $request->input('users_id'),
+        ]);
+        $user = User::find($users_id);
+        //dd($user);
+        //dd($taches);
+        $user->taches()->create([
+            'titre' => $request->input('titre'),
+            'detail' => $request->input('detail'),
+            'users_id' => $request->input('users_id'),
+        ]);
+        return back()->with('La tache a bien été créée !');
+        return view('dashboard');
+
+        /*Tache::create([
             'titre' => $request->titre,
             'detail' => $request->detail,
             'users_id' =>$request->users_id
         ]);
-        dd('Tache créée !');
+        dd('Tache créée !');*/
     }
 
     /**

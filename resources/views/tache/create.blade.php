@@ -55,6 +55,7 @@
 <p><a href="/dashboard">Revenir à la page d'acceuil</a></p>
 @endsection--}}
 
+<title>Nouvelle tâche</title>
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -86,6 +87,11 @@
 
                 <div class="form-group">
                     <label for="users_id">Selectionner un utilisateur</label>
+                    <select class="form-control" id="users_id" name="users_id">
+                        @foreach($users as $user)
+                            <option value="{{ $user->id }}" >{{ $user->nom }}</option>
+                        @endforeach
+                    </select>
                     {{--<input type="text" class="form-control @error('users_id') is-invalid @enderror" id="users_id" name="users_id" placeholder="Utilisateur" value="{{ old('users_id') }}">--}}
                     @error('users_id')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -98,8 +104,12 @@
                   </x-jet-button>
                 </div>
             </form>
+
         </div>
       </div>
     </div>
   </div>
+<footer>
+    <p>&copy; Copyright {{date('Y')}} &middot;</p>
+</footer>
 </x-app-layout>
