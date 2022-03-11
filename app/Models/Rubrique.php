@@ -14,6 +14,9 @@ class Rubrique extends Model
 
     public function taches()
     {
-        return $this->hasMany(Tache::class);
+        return $this->hasMany(
+            Tache::class, 'tache_id', 'id'
+        );
+        return $this->hasMany(Tache::class, 'tache_id', 'id');
     }
 }

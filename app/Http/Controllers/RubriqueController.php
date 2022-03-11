@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Rubrique;
+use App\Models\Tache;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RubriqueController extends Controller
 {
@@ -13,7 +16,7 @@ class RubriqueController extends Controller
      */
     public function index()
     {
-        //
+        return view('rubrique.createrubrique');
     }
 
     /**
@@ -23,7 +26,8 @@ class RubriqueController extends Controller
      */
     public function create()
     {
-        //
+        $taches = Tache::all(['id', 'titre']);
+        return view('rubrique.createrubrique', compact('taches'));
     }
 
     /**
@@ -34,7 +38,26 @@ class RubriqueController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nom' => 'required',
+            'tache_id' => 'required'
+        ]);
+
+        $tache_id = Auth::user()->id;
+        //dd($tache_id);
+        $rubriques = new Rubrique([
+            'nom' => $request->input('nom'),
+            'tache_id' => $request->input('tache_id'),
+        ]);
+        $tache = Tache::find($tache_id);
+        //dd($user);
+        //dd($taches);
+        $tache->rubrique()->create([
+            'nom' => $request->input('nom'),
+            'tache_id' => $request->input('tache_id'),
+        ]);
+        //return back()->with('La tache a bien été créée !');
+        return redirect('/dashboard')->with('La rubrique a bien été créée !');
     }
 
     /**
