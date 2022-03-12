@@ -15,7 +15,7 @@
               {{ session('message') }}
             </div>
              @endif
-            <form method="POST" action="{{ route('dashboard.store') }}">
+            <form method="POST" action="{{ route('rubrique.store') }}">
                 @csrf
 
                 <div class="mt-4">

@@ -29,6 +29,6 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/dashboard/taches/{id}', [TacheController::class, 'update'])->name('dashboard.update');//pour modifier la tache
     Route::delete('/dashboard/taches/delete', [TacheController::class, 'destroy'])->name('dashboard.destroy');//pour supprimer une tache
 
-    Route::get('/dashboard/rubrique/create', [RubriqueController::class, 'create'])->name('dashboard.create');//pour afficher le formulaire creer une nouvelle rubrique
-    Route::post('/dashboard/rubrique/create', [RubriqueController::class, 'store'])->name('dashboard.store');//pour sauvegarder la tache dans la bd
+    Route::get('/dashboard/rubrique/create', [RubriqueController::class, 'create'])->name('rubrique.create');//pour afficher le formulaire creer une nouvelle rubrique
+    Route::post('/dashboard/rubrique/create', [RubriqueController::class, 'store'])->name('rubrique.store');//pour sauvegarder la tache dans la bd
 });

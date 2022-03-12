@@ -18,7 +18,7 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Liste des tâches
                 <a href="{{ route('dashboard.create') }}" role="button" class="bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded float-right">Créer une tâche</a>
-                <a href="{{ route('dashboard.create') }}" role="button" class="bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded float-right">Créer une rubrique</a>
+                <a href="{{ route('rubrique.create') }}" role="button" class="bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded float-right">Créer une rubrique</a>
                 {{--<a href="{{ route('dashboard.create') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Ajouter une nouvelle tâche</a>--}}
             </h2>
         </x-slot>
@@ -47,7 +47,7 @@
                                 <span>Aucune tâche en base de données.</span>
                             @endif
 
-                            @if ($rubriques->count() > 0)
+                            {{--@if ($rubriques->count() > 0)
                                 @foreach ($rubriques as $rubrique )
                                     <tr>
                                         <td class="px-4 py-3">{{ $rubrique->nom }}</td>
@@ -55,7 +55,7 @@
                                 @endforeach
                             @else
                                 <span>Aucune rubrique en base de données.</span>
-                            @endif
+                            @endif--}}
                         </tbody>
                     </table>
                 </div>
