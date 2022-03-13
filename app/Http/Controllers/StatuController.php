@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Rubrique;
+use App\Models\Statu;
 use App\Models\Tache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class RubriqueController extends Controller
+class StatuController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -40,24 +40,13 @@ class RubriqueController extends Controller
     {
         $request->validate([
             'nom' => 'required',
-            'tache_id' => 'required'
         ]);
 
-        $tache_id = Auth::user()->id;
-        //dd($tache_id);
-        $rubriques = new Rubrique([
+        $status = new Statu([
             'nom' => $request->input('nom'),
-            'tache_id' => $request->input('tache_id'),
         ]);
-        $tache = Tache::find($tache_id);
-        //dd($user);
-        //dd($taches);
-        $tache->rubrique()->create([
-            'nom' => $request->input('nom'),
-            'tache_id' => $request->input('tache_id'),
-        ]);
-        //return back()->with('La tache a bien été créée !');
-        return redirect('/dashboard')->with('La rubrique a bien été créée !');
+        $status->save();
+        return redirect('/dashboard')->with('message', 'Le status a bien été créée !');
     }
 
     /**

@@ -32,7 +32,11 @@
                     </div>
                 </header>
             @endif
-
+            @if (session()->has('message'))
+                <div class="flex items-center bg-green-500 text-red text-sm font-bold px-4 py-3">
+                    {{ session('message') }}
+                </div>
+            @endif
             <!-- Page Content -->
             <main>
                 {{ $slot }}

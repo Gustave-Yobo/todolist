@@ -41,21 +41,12 @@
                                     <tr>
                                         {{--<td class="px-4 py-3">{{ $tache->titre }}</td>--}}
                                         <td class="px-4 py-3"><a href="{{ route('dashboard.taches.show', ['id' => $tache->id ])}}" role="button" class="bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">{{ $tache->titre}}</a></td>
+                                        <td class="px-4 py-3">{{ \App\Models\Statu::find($tache->status_id)->nom }}</td>
                                     </tr>
                                 @endforeach
                             @else
                                 <span>Aucune tâche en base de données.</span>
                             @endif
-
-                            {{--@if ($rubriques->count() > 0)
-                                @foreach ($rubriques as $rubrique )
-                                    <tr>
-                                        <td class="px-4 py-3">{{ $rubrique->nom }}</td>
-                                    </tr>
-                                @endforeach
-                            @else
-                                <span>Aucune rubrique en base de données.</span>
-                            @endif--}}
                         </tbody>
                     </table>
                 </div>

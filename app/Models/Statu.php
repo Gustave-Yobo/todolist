@@ -6,11 +6,11 @@ use App\Models\Tache;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Rubrique extends Model
+class Statu extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nom', 'tache_id'];
+    protected $fillable = ['nom',];
 
     public function taches()
     {

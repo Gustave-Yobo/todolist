@@ -14,8 +14,10 @@
                     <p>{{ $tache->titre }}</p>
                     <p class="text-2xl">Détail</p>
                     <p>{{ $tache->detail }}</p>
-                    <p class="text-2xl">Utilisateur</p>
+                    <p class="text-2xl">Utilisateur assigné</p>
                     <p>{{ $tache->users_id }}</p>
+                    <p class="text-2xl">Status</p>
+                    <p>{{ \App\Models\Statu::find($tache->status_id)->nom }}</p>
                     {{--<p class="text-2xl">Etat</p>
                     <p>
                     @if($tache->state)
@@ -39,15 +41,30 @@
         <div>{{ $tache}}</div>
     @endforeach--}}
     </div>
+    {{--<div class="flex items-center justify-end mt-4">
+        <x-jet-button class="ml-4">
+            <a href="{{ route('dashboard.edit') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Changer le status</a>
+        </x-jet-button>
+    </div>--}}
+
     <div class="flex items-center justify-end mt-4">
         <x-jet-button class="ml-4">
-            <a href="{{ route('dashboard.edit') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Modifier</a>
+            <a href="{{ route('dashboard.edit', ['id' => $tache->id ]) }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Modifier</a>
         </x-jet-button>
     </div>
 
     <div class="flex items-center justify-end mt-4">
         <x-jet-button class="ml-4">
-            <a href="{{ route('dashboard.destroy') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Supprimer</a>
+            {{--<a href="{{ route('dashboard.destroy', ['id' => $tache->id ]) }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Supprimer</a>--}}
+            <form id="destroy{{ $tache->id }}" action="{{ route('dashboard.destroy', ['id' => $tache->id ]) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <a role="button" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                  onclick="event.preventDefault();
+                  this.closest('form').submit();">
+                  Supprimer
+                </a>
+            </form>
         </x-jet-button>
     </div>
 

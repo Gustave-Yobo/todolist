@@ -7,5 +7,5 @@
           this.closest('form').submit();">
           Supprimer
         </a>
-      </form>
+    </form>
 </x-app-layout>

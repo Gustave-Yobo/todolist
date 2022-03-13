@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('titre');
             $table->string('detail');
             $table->foreignId('users_id')->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger('status_id');
+            $table->foreign('status_id')->references('id')->on('status')->onDelete('cascade');
             $table->timestamps();
         });
     }

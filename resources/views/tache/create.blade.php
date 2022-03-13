@@ -86,7 +86,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="users_id">Selectionner un utilisateur</label>
+                    <label for="users_id">Assigner à un utilisateur</label>
                     <select class="form-control" id="users_id" name="users_id">
                         @foreach($users as $user)
                             <option value="{{ $user->id }}" >{{ $user->nom }}</option>

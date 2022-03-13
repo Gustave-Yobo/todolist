@@ -28,6 +28,36 @@
                   <textarea class="form-input rounded-md shadow-sm mt-1" style="width: 100%" id="detail" name="detail" placeholder="Détail de la tâche">{{ old('detail', $tache->detail) }}</textarea>
                 </div>
 
+                <div class="form-group">
+                    <label for="users_id">Assigner à un utilisateur</label>
+                    <select class="form-control" id="users_id" name="users_id">
+                        @foreach($users as $user)
+                            <option @if ($user->id == $tache->users_id) selected
+
+                            @endif value="{{ $user->id }}" >{{ $user->nom }}</option>
+                        @endforeach
+                    </select>
+                    {{--<input type="text" class="form-control @error('users_id') is-invalid @enderror" id="users_id" name="users_id" placeholder="Utilisateur" value="{{ old('users_id') }}">--}}
+                    @error('users_id')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="users_id">Status</label>
+                    <select class="form-control" id="status_id" name="status_id">
+                        @foreach($status as $statu)
+                            <option @if ($statu->id == $tache->status_id) selected
+
+                            @endif value="{{ $statu->id }}" >{{ $statu->nom }}</option>
+                        @endforeach
+                    </select>
+                    {{--<input type="text" class="form-control @error('users_id') is-invalid @enderror" id="users_id" name="users_id" placeholder="Utilisateur" value="{{ old('users_id') }}">--}}
+                    @error('users_id')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
                 {{--<div class="form-group">
                     <label for="users_id">Selectionner un utilisateur</label>
                     <select class="form-control" id="users_id" name="users_id">
@@ -50,7 +80,7 @@
 
                 <div class="flex items-center justify-end mt-4">
                     <x-jet-button class="ml-4">
-                        Envoyer
+                        Modifier
                     </x-jet-button>
                 </div>
                 </form>

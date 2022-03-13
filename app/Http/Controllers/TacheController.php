@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use view;
 use App\Models\User;
+use App\Models\Statu;
 use App\Models\Tache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 class TacheController extends Controller
 {
@@ -48,9 +50,12 @@ class TacheController extends Controller
      */
     public function store(Request $request)
     {
+
+       //dd($request->all());
         $request->validate([
             'titre' => 'required',
             'detail' => 'required',
+            //'status_id' => 'required',
             'users_id' => 'required'
         ]);
 
@@ -59,18 +64,20 @@ class TacheController extends Controller
         $taches = new Tache([
             'titre' => $request->input('titre'),
             'detail' => $request->input('detail'),
+            'status_id' => 1,
             'users_id' => $request->input('users_id'),
         ]);
-        $user = User::find($users_id);
+        $taches->save();
+        //$user = User::find($users_id);
         //dd($user);
         //dd($taches);
-        $user->taches()->create([
+        /*$user->taches()->create([
             'titre' => $request->input('titre'),
             'detail' => $request->input('detail'),
             'users_id' => $request->input('users_id'),
-        ]);
+        ]);*/
         //return back()->with('La tache a bien été créée !');
-        return redirect('/dashboard')->with('La tache a bien été créée !');
+        return redirect('/dashboard')->with('message','La tache a bien été créée !');
 
         /*Tache::create([
             'titre' => $request->titre,
@@ -100,10 +107,12 @@ class TacheController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, Tache $tache)
+    public function edit($id)
     {
+        $users = User::all();
+        $status = Statu::all();
         $tache = Tache::find($id);
-        return view('tache.edit', compact('tache', 'id'));
+        return view('tache.edit', compact('tache', 'id', 'users', 'status'));
     }
 
     /**
@@ -113,28 +122,23 @@ class TacheController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, Tache $tache)
+    public function update($id, Request $request)
     {
-        $users = User::all();
         $data = $request->validate([
             'titre' => 'required|max:100',
             'detail' => 'required|max:500',
-            'users_id' => 'required'
+            'users_id' => 'required',
+            'status_id' => 'required'
         ]);
         $users_id = Auth::user()->id;
-        //dd($users_id);
-        $taches = new Tache([
-            'titre' => $request->input('titre'),
-            'detail' => $request->input('detail'),
-            'users_id' => $request->input('users_id'),
-        ]);
-        $user = User::find($users_id);
+        $tache = Tache::find($id);
+
         $tache->titre = $request->titre;
         $tache->detail = $request->detail;
         $tache->users_id = $request->users_id;
-        //$tache->state = $request->has('state');
+        $tache->status_id = $request->status_id;
         $tache->save();
-        return back()->with('message', "La tâche a bien été modifiée !");
+        return redirect('/dashboard/taches/'.$id)->with('message', "La tâche a bien été modifiée !");
     }
 
     /**
@@ -143,9 +147,10 @@ class TacheController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, Tache $tache)
+    public function destroy($id)
     {
+        $tache = Tache::find($id);
         $tache->delete();
-        return back();
+        return redirect('/dashboard')->with('message', "La tâche a bien été supprimée !");
     }
 }

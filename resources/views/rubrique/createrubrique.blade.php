@@ -2,7 +2,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Création d'une rubrique
+            Création d'un status
         </h2>
     </x-slot>
 
@@ -23,7 +23,7 @@
                   <x-jet-input class="block mt-1 w-full" type="text" id=nom name="nom" :value="old('nom')" placeholder="Nom de la rubrique" required autofocus />
                 </div>
 
-                <div class="form-group">
+                {{--<div class="form-group">
                     <label for="tache_id">Selectionner une tâche</label>
                     <select class="form-control" id="tache_id" name="tache_id">
                         @foreach($taches as $tache)
@@ -31,10 +31,10 @@
                         @endforeach
                     </select>
                     {{--<input type="text" class="form-control @error('users_id') is-invalid @enderror" id="users_id" name="users_id" placeholder="Utilisateur" value="{{ old('users_id') }}">--}}
-                    @error('users_id')
+                {{--    @error('users_id')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
-                </div>
+                </div>--}}
 
                 <div class="flex items-center justify-end mt-4">
                   <x-jet-button class="ml-4">
