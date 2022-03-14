@@ -1,4 +1,4 @@
-<title>{{$tache->titre}}</title>
+<title>Tache</title>
 <x-app-layout>
     <div>
         <x-slot name="header">
@@ -18,14 +18,6 @@
                     <p>{{ $tache->users_id }}</p>
                     <p class="text-2xl">Status</p>
                     <p>{{ \App\Models\Statu::find($tache->status_id)->nom }}</p>
-                    {{--<p class="text-2xl">Etat</p>
-                    <p>
-                    @if($tache->state)
-                        La tâche a été accomplie !
-                    @else
-                        La tâche n'a pas encore été accomplie.
-                    @endif
-                    </p>--}}
                     <p class="text-2xl">Date de création</p>
                     <p>{{ $tache->created_at->format('d/m/Y') }}</p>
                     @if($tache->created_at != $tache->updated_at)
@@ -36,16 +28,6 @@
             </div>
         </div>
     </div>
-        {{--<hr>
-    @foreach ($user->taches as $tache )
-        <div>{{ $tache}}</div>
-    @endforeach--}}
-    </div>
-    {{--<div class="flex items-center justify-end mt-4">
-        <x-jet-button class="ml-4">
-            <a href="{{ route('dashboard.edit') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Changer le status</a>
-        </x-jet-button>
-    </div>--}}
 
     <div class="flex items-center justify-end mt-4">
         <x-jet-button class="ml-4">
@@ -55,11 +37,10 @@
 
     <div class="flex items-center justify-end mt-4">
         <x-jet-button class="ml-4">
-            {{--<a href="{{ route('dashboard.destroy', ['id' => $tache->id ]) }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Supprimer</a>--}}
             <form id="destroy{{ $tache->id }}" action="{{ route('dashboard.destroy', ['id' => $tache->id ]) }}" method="POST">
                 @csrf
                 @method('DELETE')
-                <a role="button" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                <a class="text-sm text-gray-700 dark:text-gray-500 underline"
                   onclick="event.preventDefault();
                   this.closest('form').submit();">
                   Supprimer

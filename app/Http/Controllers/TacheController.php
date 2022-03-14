@@ -12,46 +12,23 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 class TacheController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $taches = Tache::all();
-        return view('dashboard', [
-            'taches' => $taches
+        $taches = Tache::all();//ici on recupere toutes les taches et on les garde dans la variable $taches
+        return view('dashboard', [//ici on retourne la vue accueil
+            'taches' => $taches//ici on affiche sur la vue accueil les taches gardés dans la variable $taches
         ]);
-
-        //dd($id);
-        // return view(..)
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        $users = User::all(['id', 'nom']);
-        //$users = User::lists(['name', 'id']);
-
-        //return view('prices.create', compact('id', 'items'));
-        return View('tache.create', compact('users'));
+        $users = User::all(['id', 'nom']);//ici on recupere l id et le nom de tous les utilisateur et on garde dans la varianle $users
+        return View('tache.create', compact('users'));//on affcihe ensuite ces informations de la variable $users
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-
-       //dd($request->all());
+        //ici on verifie si les champs ne sont pas enregistrés en etant vides
         $request->validate([
             'titre' => 'required',
             'detail' => 'required',
@@ -60,68 +37,33 @@ class TacheController extends Controller
         ]);
 
         $users_id = Auth::user()->id;
-        //dd($users_id);
+        //on enregistre une tache dans la bd
         $taches = new Tache([
             'titre' => $request->input('titre'),
             'detail' => $request->input('detail'),
-            'status_id' => 1,
+            'status_id' => 1,//ici on enregistre la tache avec un statut par defaut où l id=1 qui est le status 'a faire'
             'users_id' => $request->input('users_id'),
         ]);
         $taches->save();
-        //$user = User::find($users_id);
-        //dd($user);
-        //dd($taches);
-        /*$user->taches()->create([
-            'titre' => $request->input('titre'),
-            'detail' => $request->input('detail'),
-            'users_id' => $request->input('users_id'),
-        ]);*/
-        //return back()->with('La tache a bien été créée !');
         return redirect('/dashboard')->with('message','La tache a bien été créée !');
-
-        /*Tache::create([
-            'titre' => $request->titre,
-            'detail' => $request->detail,
-            'users_id' =>$request->users_id
-        ]);
-        dd('Tache créée !');*/
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        $tache = Tache::findorFail($id);
+        $tache = Tache::findorFail($id);//ici on fait une recherche de l id des taches et on garde le resultat dans la variable $tache
         return view('tache', [
-            'tache' =>  $tache
+            'tache' =>  $tache //ensuite on affiche
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        $users = User::all();
-        $status = Statu::all();
-        $tache = Tache::find($id);
-        return view('tache.edit', compact('tache', 'id', 'users', 'status'));
+        $users = User::all();//on recupere tous les utilisateurs on garde dans $users
+        $status = Statu::all();//on recupere tous les status on garde dans $status
+        $tache = Tache::find($id);//on fait une recherche de l id de tache et on garde dans $tache
+        return view('tache.edit', compact('tache', 'id', 'users', 'status'));//ensuite on affiche
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update($id, Request $request)
     {
         $data = $request->validate([
@@ -130,6 +72,7 @@ class TacheController extends Controller
             'users_id' => 'required',
             'status_id' => 'required'
         ]);
+
         $users_id = Auth::user()->id;
         $tache = Tache::find($id);
 
@@ -141,12 +84,6 @@ class TacheController extends Controller
         return redirect('/dashboard/taches/'.$id)->with('message', "La tâche a bien été modifiée !");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $tache = Tache::find($id);

@@ -1,3 +1,4 @@
+<title>Modifier la tâche</title>
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -37,7 +38,6 @@
                             @endif value="{{ $user->id }}" >{{ $user->nom }}</option>
                         @endforeach
                     </select>
-                    {{--<input type="text" class="form-control @error('users_id') is-invalid @enderror" id="users_id" name="users_id" placeholder="Utilisateur" value="{{ old('users_id') }}">--}}
                     @error('users_id')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -52,31 +52,10 @@
                             @endif value="{{ $statu->id }}" >{{ $statu->nom }}</option>
                         @endforeach
                     </select>
-                    {{--<input type="text" class="form-control @error('users_id') is-invalid @enderror" id="users_id" name="users_id" placeholder="Utilisateur" value="{{ old('users_id') }}">--}}
                     @error('users_id')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
-
-                {{--<div class="form-group">
-                    <label for="users_id">Selectionner un utilisateur</label>
-                    <select class="form-control" id="users_id" name="users_id">
-                        @foreach($users as $user)
-                            <option value="{{ $user->id }}" >{{ $user->nom }}</option>
-                        @endforeach
-                    </select>
-                    {{--<input type="text" class="form-control @error('users_id') is-invalid @enderror" id="users_id" name="users_id" placeholder="Utilisateur" value="{{ old('users_id') }}">--}}
-                {{--    @error('users_id')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>--}}
-
-                {{--<div class="block mt-4">
-                    <label class="flex items-center">
-                      <input type="checkbox" class="form-checkbox" id="state" name="state" @if(old('state', $task->state)) checked @endif>
-                      <span class="ml-2 text-sm text-gray-600">Tâche accomplie</span>
-                    </label>
-                </div>--}}
 
                 <div class="flex items-center justify-end mt-4">
                     <x-jet-button class="ml-4">

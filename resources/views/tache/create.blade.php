@@ -1,60 +1,3 @@
-{{--@extends('layouts.base')
-
-<title>Creation d'une tâche</title>
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Création d'une tâche</div>
-                <div class="card-body">
-                    @if ($errors->any())
-                        @foreach ($errors->all() as $error )
-                            <div class="text-red-500">{{ $error }}</div>
-                        @endforeach
-                    @endif
-                    <form action="{{route('dashboard.store')}}" method="post">
-                        @csrf
-                        @if (session()->has('message'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('message') }}
-                            </div>
-                        @endif
-                        <div class="form-group">
-                            <label for="titre">Titre</label>
-                            <input type="text" class="form-control @error('titre') is-invalid @enderror" id="titre" name="titre" placeholder="Titre de la tâche" value="{{ old('titre') }}">
-                            @error('titre')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="description">Détail</label>
-                            <textarea class="form-control @error('detail') is-invalid @enderror" id="detail" name="detail" placeholder="Détail de la tâche">{{ old('detail') }}</textarea>
-                            @error('detail')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label>Selectionner un utilisateur</label>
-                            <select class="form-control" name="users_id">
-                                @foreach($users as $user)
-                                    <option value="{{$user->users_id}}">{{$user->nom}}</option>
-                                @endforeach
-                            </select>
-                            @error('users_id')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <button type="submit" class="btn btn-primary">Envoyer</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<p><a href="/dashboard">Revenir à la page d'acceuil</a></p>
-@endsection--}}
-
 <title>Nouvelle tâche</title>
 <x-app-layout>
     <x-slot name="header">
@@ -92,7 +35,6 @@
                             <option value="{{ $user->id }}" >{{ $user->nom }}</option>
                         @endforeach
                     </select>
-                    {{--<input type="text" class="form-control @error('users_id') is-invalid @enderror" id="users_id" name="users_id" placeholder="Utilisateur" value="{{ old('users_id') }}">--}}
                     @error('users_id')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
