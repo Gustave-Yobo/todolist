@@ -90,4 +90,9 @@ class TacheController extends Controller
         $tache->delete();
         return redirect('/dashboard')->with('message', "La tâche a bien été supprimée !");
     }
+
+    public function getAllTaches():array
+    {
+        $taches = getAllTaches($id);
+    }
 }
