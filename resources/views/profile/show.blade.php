@@ -1,3 +1,4 @@
+<title>Profil</title>
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -42,4 +43,14 @@
             @endif
         </div>
     </div>
+
+    <!-- ======= Footer ======= -->
+<footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>Todolist</span></strong>. Tous Droits Reservés
+    </div>
+    <div class="credits">
+      Par <a href="#">Gustave Yobo</a>
+    </div>
+  </footer><!-- End Footer -->
 </x-app-layout>

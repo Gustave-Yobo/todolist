@@ -4,7 +4,20 @@
         <x-slot name="header">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Fiche d'une tâche
+                <a href="{{ route('dashboard.edit', ['id' => $tache->id ]) }}" role="button" class="bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded float-right">Modifier</a>
             </h2>
+            <br>
+            <div class="flex items-center justify-end mt-4">
+                <form id="destroy{{ $tache->id }}" action="{{ route('dashboard.destroy', ['id' => $tache->id ]) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <a role="button" class="bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded float-right"
+                      onclick="event.preventDefault('Are you sure');
+                      this.closest('form').submit();">
+                      Supprimer
+                    </a>
+                </form>
+        </div>
         </x-slot>
 
         <div class="py-12">
@@ -15,7 +28,8 @@
                     <p class="text-2xl">Détail</p>
                     <p>{{ $tache->detail }}</p>
                     <p class="text-2xl">Utilisateur assigné</p>
-                    <p>{{ $tache->users_id }}</p>
+                    <p>{{ \App\Models\User::find($tache->users_id)->nom }}</p>
+                    {{-- <p>{{ $tache->users_id }}</p> --}}
                     <p class="text-2xl">Status</p>
                     <p>{{ \App\Models\Statu::find($tache->status_id)->nom }}</p>
                     <p class="text-2xl">Date de création</p>
@@ -28,30 +42,6 @@
             </div>
         </div>
     </div>
-
-    <div class="flex items-center justify-end mt-4">
-        <x-jet-button class="ml-4">
-            <a href="{{ route('dashboard.edit', ['id' => $tache->id ]) }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Modifier</a>
-        </x-jet-button>
-    </div>
-
-    <div class="flex items-center justify-end mt-4">
-        <x-jet-button class="ml-4">
-            <form id="destroy{{ $tache->id }}" action="{{ route('dashboard.destroy', ['id' => $tache->id ]) }}" method="POST">
-                @csrf
-                @method('DELETE')
-                <a class="text-sm text-gray-700 dark:text-gray-500 underline"
-                  onclick="event.preventDefault();
-                  this.closest('form').submit();">
-                  Supprimer
-                </a>
-            </form>
-        </x-jet-button>
-    </div>
-
-    <footer>
-        <p>&copy; Copyright {{date('Y')}} &middot;</p>
-    </footer>
 </x-app-layout>
 
 

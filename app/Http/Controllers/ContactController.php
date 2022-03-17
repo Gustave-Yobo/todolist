@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contact;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Validator;
+use App\Http\Requests\ContactRequest;
 
 class ContactController extends Controller
 {
@@ -23,7 +26,7 @@ class ContactController extends Controller
      */
     public function create()
     {
-        //
+        return view('contact');
     }
 
     /**
@@ -32,9 +35,20 @@ class ContactController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ContactRequest $request)
     {
-        //
+        $request->validate([
+            'nom' => 'required',
+            'email' => 'required',
+            'message' => 'required'
+        ]);
+        $contact = new Contact([
+            'nom' => $request->input('nom'),
+            'email' => $request->input('email'),
+            'message' => $request->input('message'),
+        ]);
+        $contact->save();
+        return redirect('/dashboard/contact')->with('message','Votre message a bien été envoyé !');
     }
 
     /**

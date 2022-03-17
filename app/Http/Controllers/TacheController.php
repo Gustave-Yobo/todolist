@@ -20,7 +20,7 @@ class TacheController extends Controller
         ]);
     }
 
-    public function create()
+    public function create($taches=null)
     {
         $users = User::all(['id', 'nom']);//ici on recupere l id et le nom de tous les utilisateur et on garde dans la varianle $users
         return View('tache.create', compact('users'));//on affcihe ensuite ces informations de la variable $users
@@ -89,10 +89,5 @@ class TacheController extends Controller
         $tache = Tache::find($id);
         $tache->delete();
         return redirect('/dashboard')->with('message', "La tâche a bien été supprimée !");
-    }
-
-    public function getAllTaches():array
-    {
-        $taches = getAllTaches($id);
     }
 }

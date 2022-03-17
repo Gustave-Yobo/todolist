@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     public function index()
     {
-        return view('user.users-profil');
+        $users = User::all();
+        return view('users-nom', [
+            'users' => $users
+        ]);
     }
 
     public function create()
@@ -21,9 +25,9 @@ class UserController extends Controller
         //
     }
 
-    public function show($id)
+    public function show()
     {
-        //
+        return view('profile.show');
     }
 
     public function edit($id)
