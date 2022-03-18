@@ -61,14 +61,54 @@
                 </a>
             </form>
         </x-jet-authentication-card>
-    </x-guest-layout>--}}
+    </x-guest-layout> --}}
 
     <div class="wrapper">
+        @if(isset ($errors) && count($errors) > 0)
+            <div class="alert alert-warning" role="alert">
+                <ul class="list-unstyled mb-0">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        @if(Session::get('success', false))
+            <?php $data = Session::get('success'); ?>
+            @if (is_array($data))
+                @foreach ($data as $msg)
+                    <div class="alert alert-warning" role="alert">
+                        <i class="fa fa-check"></i>
+                        {{ $msg }}
+                    </div>
+                @endforeach
+            @else
+                <div class="alert alert-warning" role="alert">
+                    <i class="fa fa-check"></i>
+                    {{ $data }}
+                </div>
+            @endif
+        @endif
         <div class="logo"> <img src="image/todo.png" alt="Todolist"> </div>
         <div class="text-center mt-4 name"> TODOLIST </div>
         <form class="p-3 mt-3" method="POST" action="{{ route('login') }}">
-            <div class="form-field d-flex align-items-center"> <span class="far fa-user"></span> <input type="email" name="email" id="email" placeholder="Email"> </div>
-            <div class="form-field d-flex align-items-center"> <span class="fas fa-key"></span> <input type="password" name="password" id="pwd" placeholder="Mot de passe"> </div> <button class="btn mt-3">Connexion</button>
+            @csrf
+            <div class="form-field d-flex align-items-center">
+                <span class="far fa-user"></span>
+                <input type="email" class="form-control" name="email" id="email" value="{{old('email')}}" placeholder="Email" required="required" autofocus>
+                @if ($errors->has('email'))
+                    <span class="text-danger text-left">{{ $errors->first('email') }}</span>
+                @endif
+            </div>
+            <div class="form-field d-flex align-items-center">
+                <span class="fas fa-key"></span>
+                <input type="password" class="form-control" name="password" id="pwd" value="{{old('password')}}" placeholder="Mot de passe" required="required">
+                @if ($errors->has('password'))
+                    <span class="text-danger text-left">{{ $errors->first('password') }}</span>
+                @endif
+            </div>
+            <button class="btn mt-3">Connexion</button>
         </form>
         <div class="text-center fs-6"> <a href="{{ route('password.request') }}">Mot de passe oublié ?</a> ou <a href="{{ route('register') }}">S'inscrire</a> </div>
     </div>

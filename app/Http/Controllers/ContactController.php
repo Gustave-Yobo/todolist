@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Contact;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Validator;
 use App\Http\Requests\ContactRequest;
 
@@ -48,6 +49,10 @@ class ContactController extends Controller
             'message' => $request->input('message'),
         ]);
         $contact->save();
+
+        Mail::to('gustaveyoboyann@gmail.com')
+            ->queue(new Contact($request->except('_token')));
+        return view('confirm');
         return redirect('/dashboard/contact')->with('message','Votre message a bien été envoyé !');
     }
 
