@@ -155,6 +155,13 @@
           <span>A propos</span>
         </a>
       </li><!-- End a propos Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{route('test.index')}}">
+          <i class="bi bi-card-list"></i>
+          <span>Test</span>
+        </a>
+      </li><!-- End a propos Page Nav -->
     </ul>
   </aside><!-- End Sidebar-->
 

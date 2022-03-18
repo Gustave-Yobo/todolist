@@ -13,7 +13,7 @@ class TemplateController extends Controller
      */
     public function index()
     {
-        return view('FrontEnd.accueil');
+        return view('test');
     }
 
     /**
