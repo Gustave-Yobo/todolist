@@ -44,6 +44,4 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/rubrique/create', [StatuController::class, 'create'])->name('rubrique.create');//pour afficher le formulaire creer une nouvelle rubrique
     Route::post('/dashboard/rubrique/create', [StatuController::class, 'store'])->name('rubrique.store');//pour sauvegarder la tache dans la bd
 
-    Route::get('/dashboard/test', [TemplateController::class, 'index'])->name('test.index');
-
 });
