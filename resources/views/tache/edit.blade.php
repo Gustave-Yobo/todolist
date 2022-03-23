@@ -1,5 +1,87 @@
 <title>Modifier la tâche</title>
-<x-app-layout>
+@extends('FrontEnd.index')
+
+@section('content')
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h1>Formulaire</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Accueil</a></li>
+                    <li class="breadcrumb-item">Formulaire de tâche</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+        <section class="section">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Modification d'une tâche</h5>
+                            <!-- General Form Elements -->
+                            @if (session()->has('message'))
+                                <div class="flex items-center bg-green-500 text-white text-sm font-bold px-4 py-3">
+                                    {{ session('message') }}
+                                </div>
+                            @endif
+                            <form method="POST" action="{{ route('dashboard.update', $tache->id) }}">
+                                @csrf
+                                @method('put')
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Titre de la tâche</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id=titre name="titre" :value="old('titre', $tache->titre)" required autofocus />
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">Détail de la tâche</label>
+                                    <div class="col-sm-10">
+                                        <textarea class="form-control" style="height: 100px" id="detail" name="detail">{{ old('detail', $tache->detail) }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label" for="users_id">Assigner à un utilisateur</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control" id="users_id" name="users_id">
+                                            @foreach($users as $user)
+                                                <option @if ($user->id == $tache->users_id) selected
+                                                @endif value="{{ $user->id }}" >{{ $user->nom }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('users_id')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label" for="users_id">Status</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control" id="status_id" name="status_id">
+                                            @foreach($status as $statu)
+                                                <option @if ($statu->id == $tache->status_id) selected
+                                                @endif value="{{ $statu->id }}" >{{ $statu->nom }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('users_id')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-10">
+                                        <button type="submit" class="btn btn-primary">Envoyer</button>
+                                    </div>
+                                </div>
+                            </form><!-- End General Form Elements -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main><!-- End #main -->
+@endsection
+
+{{--<x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             Modification d'une tâche
@@ -69,4 +151,4 @@
     <footer>
         <p>&copy; Copyright {{date('Y')}} &middot;</p>
     </footer>
-</x-app-layout>
+</x-app-layout> --}}
