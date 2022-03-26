@@ -90,4 +90,17 @@ class TacheController extends Controller
         $tache->delete();
         return redirect('/dashboard')->with('message', "La tâche a bien été supprimée !");
     }
+
+    public function search(Request $request){
+        // Get the search value from the request
+        $search = $request->input('search');
+
+        // Search in the title and body columns from the posts table
+        $taches = Tache::query()
+            ->where('titre', 'LIKE', "%{$search}%")
+            ->get();
+
+        // Return the search view with the resluts compacted
+        return view('search', compact('taches'));
+    }
 }

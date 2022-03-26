@@ -52,8 +52,8 @@
     </div><!-- End Logo -->
 
     <div class="search-bar">
-      <form class="search-form d-flex align-items-center" method="POST" action="#">
-        <input type="text" name="query" placeholder="Recherche" title="Entrez le mot-clé de recherche">
+      <form class="search-form d-flex align-items-center" method="GET" action="{{ route('search') }}">
+        <input type="text" name="query" placeholder="Recherche" title="Entrez le mot-clé de recherche" required>
         <button type="submit" title="Recherche"><i class="bi bi-search"></i></button>
       </form>
     </div><!-- End Search Bar -->
