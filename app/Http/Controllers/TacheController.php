@@ -14,10 +14,11 @@ class TacheController extends Controller
 {
     public function index()
     {
+        $users = User::all();
         $taches = Tache::all();//ici on recupere toutes les taches et on les garde dans la variable $taches
         return view('dashboard', [//ici on retourne la vue accueil
             'taches' => $taches//ici on affiche sur la vue accueil les taches gardés dans la variable $taches
-        ]);
+        ], compact('users'));
     }
 
     public function create($taches=null)
@@ -91,16 +92,10 @@ class TacheController extends Controller
         return redirect('/dashboard')->with('message', "La tâche a bien été supprimée !");
     }
 
-    public function search(Request $request){
-        // Get the search value from the request
-        $search = $request->input('search');
-
-        // Search in the title and body columns from the posts table
-        $taches = Tache::query()
-            ->where('titre', 'LIKE', "%{$search}%")
-            ->get();
-
-        // Return the search view with the resluts compacted
+    public function search(Request $request)
+    {
+        $search = $request->search_name;
+        $taches = Tache::where('titre', 'LIKE', '%'.$search.'%')->get();
         return view('search', compact('taches'));
     }
 }

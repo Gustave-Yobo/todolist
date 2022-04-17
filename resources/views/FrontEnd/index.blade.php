@@ -53,7 +53,7 @@
 
     <div class="search-bar">
       <form class="search-form d-flex align-items-center" method="GET" action="{{ route('search') }}">
-        <input type="text" name="query" placeholder="Recherche" title="Entrez le mot-clé de recherche" required>
+        <input type="text" name="search_name" placeholder="Rechercher une tâche" title="Entrez le mot-clé de recherche" required>
         <button type="submit" title="Recherche"><i class="bi bi-search"></i></button>
       </form>
     </div><!-- End Search Bar -->
@@ -71,7 +71,11 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="{{route('profil')}}" data-bs-toggle="dropdown">
             <img src="{{ asset('assets/img/yann.jpg') }}" alt="Profil" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">Yann Dimitri</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2">
+                @foreach ($users as $user)
+                    {{ $user->nom }}
+                @endforeach
+            </span>
           </a><!-- End Profile Image Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -168,7 +172,7 @@
       <!-- You can delete the links only if you purchased the pro version. -->
       <!-- Licensing information: https://bootstrapmade.com/license/ -->
       <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-      Par <a href="#">Gustave Yobo</a>
+      Par <a href="https://www.facebook.com/">Gustave Yobo</a>
     </div>
   </footer><!-- End Footer -->
 

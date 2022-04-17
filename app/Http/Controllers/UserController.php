@@ -14,7 +14,7 @@ class UserController extends Controller
         $users = User::all();
         return view('dashboard', [
             'users' => $users
-        ]);
+        ], compact('users'));
     }
 
     public function create()

@@ -6,7 +6,7 @@
         <h1>Accueil</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Accueil</a></li>
                 <li class="breadcrumb-item active">Dashboard</li>
             </ol>
         </nav>
@@ -20,7 +20,7 @@
                 <div class="row">
 
                     <!-- Sales Card -->
-                    <div class="col-xxl-10 col-md-6">
+                    <div class="col-xxl-10 col-md-600">
                         <div class="card info-card sales-card">
                             <div class="card-body">
                                 <h5 class="card-title"> <i class="bi bi-cart"></i>   Liste des tâches </span></h5>
